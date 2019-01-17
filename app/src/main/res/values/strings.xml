@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Uber</string>
+    <string name="app_name">BookUrRide</string>
     <string name="title_activity_welcome">Map</string>
-    <string name="title_activity_home">Uber</string>
+    <string name="title_activity_home">BookUrRide</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Shivam Kumar</string>
@@ -11,4 +11,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="start">Start</string>
+    <string name="btn_skip">Skip</string>
+    <string name="btn_finish">Finish</string>
+
+    <string name="lorem">Bacon ipsum dolor amet pancetta flank chicken, picanha ham ham hock boudin rump fatback chuck hamburger shank swine. </string>
 </resources>

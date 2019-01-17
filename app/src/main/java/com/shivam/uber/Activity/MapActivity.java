@@ -1,23 +1,19 @@
-package com.shivam.uber;
+package com.shivam.uber.Activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -34,11 +30,16 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.shivam.uber.R;
 
-public class Home extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
+import java.text.DecimalFormat;
 
-    private static final String TAG = "Home";
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
+
+    private static final String TAG = "MapActivity";
 
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -48,6 +49,8 @@ public class Home extends AppCompatActivity
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
             new LatLng(-40, -168), new LatLng(71, 136));
 
+    private AutoCompleteTextView mSearchText;
+    private ImageView mGps, mInfo, mPlacePicker, back;
 
     //vars
     private Boolean mLocationPermissionsGranted = false;
@@ -56,75 +59,32 @@ public class Home extends AppCompatActivity
 
     private GoogleApiClient mGoogleApiClient;
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Montserrat-Light.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build());
+        setContentView(R.layout.activity_map);
+        mGps = (ImageView) findViewById(R.id.ic_gps);
+        back = (ImageView) findViewById(R.id.back);
+        getLocationPermission();
 
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        TextView tvLocation = (TextView) findViewById(R.id.tv_location);
-        tvLocation.setOnClickListener(new View.OnClickListener() {
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Home.this,MapActivity.class));
+                Intent i = new Intent(MapActivity.this, Home.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
             }
         });
 
-
-        getLocationPermission();
-
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.trips) {
-            startActivity(new Intent(Home.this, YourTrips.class));
-
-        } else if (id == R.id.help) {
-            startActivity(new Intent(Home.this, Help.class));
-
-        } else if (id == R.id.payment) {
-            startActivity(new Intent(Home.this, Payment.class));
-
-        } else if (id == R.id.free) {
-            startActivity(new Intent(Home.this, FreeTrips.class));
-
-        } else if (id == R.id.settings) {
-            startActivity(new Intent(Home.this, Settings.class));
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     @Override
@@ -146,6 +106,32 @@ public class Home extends AppCompatActivity
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
             init();
+
+            googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
+                @Override
+                public void onMapClick(LatLng latLng) {
+
+                    // Creating a marker
+                    MarkerOptions markerOptions = new MarkerOptions();
+
+                    // Setting the position for the marker
+                    markerOptions.position(latLng);
+
+                    // Setting the title for the marker.
+                    // This will be displayed on taping the marker
+                    markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+
+                    // Clears the previously touched position
+                    mMap.clear();
+
+                    // Animating to the touched position
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+
+                    // Placing a marker on the touched position
+                    mMap.addMarker(markerOptions);
+                }
+            });
         }
     }
 
@@ -158,6 +144,14 @@ public class Home extends AppCompatActivity
                 .addApi(Places.PLACE_DETECTION_API)
                 .enableAutoManage(this, this)
                 .build();
+
+        mGps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: clicked gps icon");
+                getDeviceLocation();
+            }
+        });
 
     }
 
@@ -183,7 +177,7 @@ public class Home extends AppCompatActivity
 
                         } else {
                             Log.d(TAG, "onComplete: current location is null");
-                            Toast.makeText(Home.this, "unable to get current location", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MapActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -233,12 +227,37 @@ public class Home extends AppCompatActivity
         Log.d(TAG, "initMap: initializing map");
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
-        mapFragment.getMapAsync(Home.this);
+        mapFragment.getMapAsync(MapActivity.this);
     }
 
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    public double CalculationByDistance(LatLng StartP, LatLng EndP) {
+        int Radius = 6371;// radius of earth in Km
+        double lat1 = StartP.latitude;
+        double lat2 = EndP.latitude;
+        double lon1 = StartP.longitude;
+        double lon2 = EndP.longitude;
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1))
+                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+                * Math.sin(dLon / 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        double valueResult = Radius * c;
+        double km = valueResult / 1;
+        DecimalFormat newFormat = new DecimalFormat("####");
+        int kmInDec = Integer.valueOf(newFormat.format(km));
+        double meter = valueResult % 1000;
+        int meterInDec = Integer.valueOf(newFormat.format(meter));
+        Log.i("Radius Value", "" + valueResult + "   KM  " + kmInDec
+                + " Meter   " + meterInDec);
+
+        return Radius * c;
     }
 }

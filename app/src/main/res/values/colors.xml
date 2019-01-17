@@ -1,13 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#0a091b</color>
-    <color name="colorPrimaryDark">#070716</color>
-    <color name="colorAccent">#0a0a0a</color>
+    <color name="colorPrimary">#015071</color>
+    <color name="colorPrimaryDark">#112F41</color>
+    <color name="colorAccent">#4FB99F</color>
     <color name="bottomText">#6b6b76</color>
     <color name="rippelEffectColor">#f816a463</color>
     <color name="btnSignIn">#1fbad6</color>
     <color name="btnRegister">#83838c</color>
-    <color name="dividerColor">#1F000000</color>
     <color name="colorTabTitle">#FFFFFF</color>
     <color name="colorEditText">#FAFAFA</color>
+
+    <!-- Screens background -->
+    <color name="bg_screen1">#112F41</color>
+    <color name="bg_screen2">#068587</color>
+    <color name="bg_screen3">#00A388</color>
+
+    <!-- dots active colors -->
+    <color name="dot_active">#000000</color>
+
+
+    <!-- dots inactive colors -->
+    <color name="dot_inactive">#cccccc</color>
+
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#727272</color>
+    <color name="colorSecondaryTextLight">#80727272</color> <!--50% transparent-->
+
+    <color name="iconDark">#99000000</color>
+
+    <color name="transparentBlack">#48000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- ONBOARDING -->
+    <color name="indicator_unselected">#4D000000</color>
+
+    <color name="lightBlue">#03A9F4</color>
+    <color name="cyan">#00BCD4</color>
+    <color name="teal">#009688</color>
+
+    <color name="dividerColor">#B6B6B6</color>
+    <color name="dividerColorLight">#48B6B6B6</color> <!--30% transparent-->
 </resources>

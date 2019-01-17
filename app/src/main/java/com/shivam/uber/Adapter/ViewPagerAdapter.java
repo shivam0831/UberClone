@@ -1,4 +1,4 @@
-package com.shivam.uber;
+package com.shivam.uber.Adapter;
 
 
 import android.support.v4.app.Fragment;

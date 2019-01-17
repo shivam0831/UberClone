@@ -1,18 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="19.2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Past trips"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:textSize="40sp"
-        android:textStyle="bold"/>
+        android:text="Showing Recent Rides"
+        android:textSize="13.4sp"
+        android:textColor="#3277d8"/>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/past_rides"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="4dp">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    android:id="@+id/i1"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/pin_black" />
+
+                <ImageView
+                    android:id="@+id/i2"
+                    android:layout_width="2dp"
+                    android:layout_height="26.9dp"
+                    android:layout_marginLeft="26dp"
+                    android:layerType="software"
+                    android:src="@drawable/rect_dotted" />
+
+
+                <ImageView
+                    android:id="@+id/i3"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="16dp"
+                    android:src="@drawable/navigatiob_blue" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/txtmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14.3dp"
+                    android:text="Phoenix Market City"
+                    android:textColor="#323643"
+                    android:textSize="13.4sp" />
+
+                <TextView
+                    android:id="@+id/txthome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14.3dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Home"
+                    android:textColor="#323643"
+                    android:textSize="13.4sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="42dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="10dp"
+                    android:text="01 May 2018"
+                    android:textColor="#323643"
+                    android:textSize="13.4sp" />
+
+                <TextView
+                    android:id="@+id/txttime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="42dp"
+                    android:layout_marginTop="5.4dp"
+                    android:layout_marginRight="10dp"
+                    android:text="06:30 PM"
+                    android:textColor="#323643"
+                    android:textSize="13.4sp" />
 
 
 
-</RelativeLayout>
+                <TextView
+                    android:id="@+id/txtprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="42dp"
+                    android:layout_marginTop="5.4dp"
+                    android:layout_marginRight="10dp"
+                    android:text="500 Rs"
+                    android:textColor="#323643"
+                    android:textSize="13.4sp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>

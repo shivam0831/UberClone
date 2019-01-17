@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:id="@+id/rootLayout"
-    tools:context=".MainActivity">
+    tools:context=".Activity.MainActivity">
 
    <LinearLayout
        android:layout_width="wrap_content"
@@ -17,6 +17,7 @@
        android:orientation="vertical">
 
        <TextView
+           android:id="@+id/logo"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="Uber"
@@ -26,26 +27,17 @@
 
 
    </LinearLayout>
-    <TextView
-        android:id="@+id/txt_bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:text="LOOKING FOR THE RIDER APP?"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:textSize="12sp"
-        android:textColor="@color/bottomText"
-        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_above="@id/txt_bottom"
+        android:layout_alignParentBottom="true"
         android:weightSum="2"
-        android:layout_margin="16dp">
+        android:layout_marginBottom="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
 
         <Button
             android:id="@+id/btn_sign_in"

@@ -1,34 +1,31 @@
-package com.shivam.uber;
+package com.shivam.uber.Activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.rengwuxian.materialedittext.MaterialEditText;
-import com.shivam.uber.Model.User;
+import com.shivam.uber.R;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
 
+    Animation frombottom, fromtop;
     Button btnSignIn, btnRegister;
+    TextView tvLogo;
     RelativeLayout rootLayout;
 
     @Override
@@ -40,14 +37,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Arkhip_font.ttf")
+                .setDefaultFontPath("fonts/Montserrat-Light.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build());
         setContentView(R.layout.activity_main);
 
 
+//        frombottom = AnimationUtils.loadAnimation(this,R.anim.frombottom);
+//        fromtop = AnimationUtils.loadAnimation(this,R.anim.fromtop);
+
         btnSignIn = findViewById(R.id.btn_sign_in);
         btnRegister = findViewById(R.id.btn_register);
+        tvLogo = findViewById(R.id.logo);
         rootLayout = findViewById(R.id.rootLayout);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
                 showLoginDialog();
             }
         });
+
+//        tvLogo.setAnimation(fromtop);
+//        btnSignIn.setAnimation(frombottom);
+//        btnRegister.setAnimation(frombottom);
 
     }
 
